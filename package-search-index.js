@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"wgu.softwareone.samircokic.inventory","l":"wgu.softwareone.samircokic.inventory"}];updateSearchResults();
