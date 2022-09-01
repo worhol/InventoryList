@@ -13,7 +13,7 @@ import java.io.IOException;
 public class InventoryManagementSystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(InventoryManagementSystem.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(InventoryManagementSystem.class.getResource("add-part-outsourced-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();

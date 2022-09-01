@@ -5,4 +5,6 @@ module wgu.softwareone.samircokic.inventory {
 
     opens wgu.softwareone.samircokic.inventory to javafx.fxml;
     exports wgu.softwareone.samircokic.inventory;
+    exports wgu.softwareone.samircokic.inventory.controller;
+    opens wgu.softwareone.samircokic.inventory.controller to javafx.fxml;
 }
