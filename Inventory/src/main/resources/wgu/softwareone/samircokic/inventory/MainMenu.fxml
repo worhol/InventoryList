@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.MainMenuController">
    <children>
       <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="283.0" layoutX="32.0" layoutY="60.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" width="371.0" />
       <Label layoutX="14.0" layoutY="25.0" text="Inventory Management System">
@@ -27,9 +27,9 @@
          <children>
             <HBox prefHeight="57.0" prefWidth="162.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="Add" />
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Modify" />
-                  <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#onActionAddPart" prefHeight="25.0" prefWidth="45.0" text="Add" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionModifyPart" text="Modify" />
+                  <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDeletePart" text="Delete" />
                </children>
                <GridPane.margin>
                   <Insets right="5.0" top="10.0" />
@@ -46,7 +46,7 @@
                   <Insets left="5.0" right="10.0" />
                </GridPane.margin>
             </TableView>
-            <TextField promptText="Search by Part ID or Name" GridPane.columnIndex="1">
+            <TextField onAction="#onActionSearchParts" promptText="Search by Part ID or Name" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -72,9 +72,9 @@
          <children>
             <HBox prefHeight="57.0" prefWidth="162.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="Add" />
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Modify" />
-                  <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#onActionAddProduct" prefHeight="25.0" prefWidth="45.0" text="Add" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionModifyProduct" text="Modify" />
+                  <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDeleteProduct" text="Delete" />
                </children>
                <GridPane.margin>
                   <Insets right="5.0" top="10.0" />
@@ -91,7 +91,7 @@
                   <Insets left="5.0" right="10.0" />
                </GridPane.margin>
             </TableView>
-            <TextField promptText="Search by Part ID or Name" GridPane.columnIndex="1">
+            <TextField onAction="#onActionsearchProducts" prefHeight="25.0" prefWidth="179.0" promptText="Search by Product ID or Name" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -106,6 +106,6 @@
             </Label>
          </children>
       </GridPane>
-      <Button layoutX="724.0" layoutY="361.0" mnemonicParsing="false" text="Exit" />
+      <Button layoutX="724.0" layoutY="361.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
    </children>
 </AnchorPane>

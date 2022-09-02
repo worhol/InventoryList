@@ -1,5 +1,7 @@
 package wgu.softwareone.samircokic.inventory.controller;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -14,5 +16,42 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    @FXML
+    public void onActionExit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+    @FXML
+    public void onActionDeleteProduct(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionModifyProduct(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionsearchProducts(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionDeletePart(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionAddProduct(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionAddPart(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionModifyPart(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void onActionSearchParts(ActionEvent actionEvent) {
     }
 }

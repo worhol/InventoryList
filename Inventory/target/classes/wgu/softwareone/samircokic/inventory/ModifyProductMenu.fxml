@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="600.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.ModifyProductViewController">
+<AnchorPane prefHeight="600.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.ModifyProductMenuController">
     <children>
         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="544.0" layoutX="29.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="763.0" />
-        <Label layoutX="70.0" layoutY="57.0" text="Add Product">
+        <Label layoutX="70.0" layoutY="57.0" text="Modify Product">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
