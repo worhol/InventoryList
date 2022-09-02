@@ -78,6 +78,61 @@ public class Inventory {
         return null;
     }
 
+    /**
+     * @param index the index place in allParts list to be set
+     * @param selectedPart the part to be updated
+     */
+    public static void updatePart(int index, Part selectedPart){
+        allParts.set(index,selectedPart);
+    }
 
+    /**
+     * @param index the index place in allProducts list to be set
+     * @param newProduct the product to be updated
+     */
+    public static void updateProduct(int index, Product newProduct){
+        allProducts.set(index, newProduct);
+    }
 
+    /**
+     * @param selectedPart the part to be deleted if it is in the allParts list
+     * @return true if part was deleted otherwise returns false
+     */
+    public static boolean deletePart(Part selectedPart){
+        for (Part part:allParts){
+            if (part.equals(selectedPart)){
+                allParts.remove(part);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param selectedProduct the product to be deleted if it is in the allProducts list
+     * @return true if product was deleted otherwise returns false
+     */
+    public static boolean deleteProduct(Part selectedProduct){
+        for (Product product: allProducts){
+            if (product.equals(selectedProduct)){
+                allParts.remove(product);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return all parts contained in allParts list
+     */
+    public static ObservableList<Part> getAllParts() {
+        return allParts;
+    }
+
+    /**
+     * @return all products contained in allProducts list
+     */
+    public static ObservableList<Product> getAllProducts() {
+        return allProducts;
+    }
 }
