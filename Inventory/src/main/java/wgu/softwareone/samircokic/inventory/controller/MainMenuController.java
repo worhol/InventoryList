@@ -32,7 +32,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void onActionsearchProducts(ActionEvent actionEvent) {
+    public void onActionSearchProducts(ActionEvent actionEvent) {
     }
 
     @FXML
@@ -45,6 +45,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void onActionAddPart(ActionEvent actionEvent) {
+
     }
 
     @FXML
