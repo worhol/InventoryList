@@ -7,7 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import wgu.softwareone.samircokic.inventory.model.InHouse;
+import wgu.softwareone.samircokic.inventory.model.Inventory;
+import wgu.softwareone.samircokic.inventory.model.Part;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,14 +22,29 @@ import java.util.ResourceBundle;
 public class MainMenuController implements Initializable {
     Stage stage;
     Parent scene;
+    @FXML
+    private TableView<Part> partsTable;
+    @FXML
+    private TableColumn pricePartsCol;
+    @FXML
+    private TableColumn partIdCol;
+    @FXML
+    private TableColumn partNameCol;
+    @FXML
+    private TableColumn inventoryCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        partsTable.setItems(Inventory.getAllParts());
+        partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        inventoryCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        pricePartsCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 
     @FXML
-    public void onActionExit(ActionEvent actionEvent) {
+    public void exitApp(ActionEvent actionEvent) {
         System.exit(0);
     }
 
@@ -32,7 +53,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void onActionModifyProduct(ActionEvent actionEvent) throws IOException {
+    public void modifyProduct(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductMenu.fxml"));
         stage.setScene(new Scene(scene));
@@ -44,7 +65,8 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void onActionDeletePart(ActionEvent actionEvent) {
+    public void deletePart(ActionEvent actionEvent) {
+        Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -56,15 +78,15 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void onActionAddPart(ActionEvent actionEvent) throws IOException {
+    public void addPart(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/AddPartMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/AddPartForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
     @FXML
-    public void onActionModifyPart(ActionEvent actionEvent) throws IOException {
+    public void modifyPart(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyPartMenu.fxml"));
         stage.setScene(new Scene(scene));

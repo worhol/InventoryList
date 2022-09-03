@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.AddPartMenuController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.AddPartFormController">
    <children>
       <VBox layoutY="78.0" prefHeight="422.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane alignment="CENTER" prefHeight="280.0" prefWidth="500.0" vgap="15.0">
               <columnConstraints>
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="115.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="103.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="117.0" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="103.0" />
-                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="62.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="142.0" minWidth="10.0" prefWidth="136.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="120.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="96.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="119.0" />
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="29.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,11 +36,11 @@
                         <Insets left="30.0" />
                      </GridPane.margin>
                   </Label>
-                  <RadioButton fx:id="inRBtn" mnemonicParsing="false" onAction="#onActionDisplayAddPartMenu" selected="true" text="In-House" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <RadioButton fx:id="inRBtn" mnemonicParsing="false" onAction="#inHouseOrOutsourcedMode" selected="true" text="In-House" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <toggleGroup>
                         <ToggleGroup fx:id="madein" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="outRBtn" mnemonicParsing="false" onAction="#onActionDisplayAddPartOutsourcedMenu" text="Outsourced" toggleGroup="$madein" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="outRBtn" mnemonicParsing="false" onAction="#inHouseOrOutsourcedMode" text="Outsourced" toggleGroup="$madein" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label text="ID" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="40.0" />
@@ -61,7 +61,7 @@
                      <GridPane.margin>
                         <Insets left="40.0" />
                      </GridPane.margin></Label>
-                  <Label text="Machine ID" GridPane.rowIndex="7">
+                  <Label fx:id="addPartMode" text="Machine ID" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="40.0" />
                      </GridPane.margin></Label>
@@ -98,7 +98,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" text="Save" />
+                        <Button mnemonicParsing="false" onAction="#savePart" text="Save" />
                         <Button mnemonicParsing="false" text="Cancel" />
                      </children>
                   </HBox>

@@ -27,20 +27,20 @@
          <children>
             <HBox prefHeight="57.0" prefWidth="162.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onActionAddPart" prefHeight="25.0" prefWidth="45.0" text="Add" />
+                  <Button mnemonicParsing="false" onAction="#addPart" prefHeight="25.0" prefWidth="45.0" text="Add" />
                   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionModifyPart" text="Modify" />
-                  <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onActionDeletePart" text="Delete" />
+                  <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#deletePart" text="Delete" />
                </children>
                <GridPane.margin>
                   <Insets right="5.0" top="10.0" />
                </GridPane.margin>
             </HBox>
-            <TableView prefHeight="163.0" prefWidth="326.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <TableView fx:id="partsTable" prefHeight="163.0" prefWidth="326.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
               <columns>
-                <TableColumn prefWidth="46.0" text="Part ID" />
-                <TableColumn prefWidth="72.0" text="Part Name" />
-                  <TableColumn prefWidth="95.0" text="Inventory Level" />
-                  <TableColumn prefWidth="134.0" text="Price/Cost per Unit" />
+                <TableColumn fx:id="partIdCol" prefWidth="46.0" text="Part ID" />
+                <TableColumn fx:id="partNameCol" prefWidth="72.0" text="Part Name" />
+                  <TableColumn fx:id="inventoryCol" prefWidth="95.0" text="Inventory Level" />
+                  <TableColumn fx:id="pricePartsCol" prefWidth="134.0" text="Price/Cost per Unit" />
               </columns>
                <GridPane.margin>
                   <Insets left="5.0" right="10.0" />
@@ -106,6 +106,6 @@
             </Label>
          </children>
       </GridPane>
-      <Button layoutX="724.0" layoutY="361.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
+      <Button layoutX="724.0" layoutY="361.0" mnemonicParsing="false" onAction="#exitApp" text="Exit" />
    </children>
 </AnchorPane>
