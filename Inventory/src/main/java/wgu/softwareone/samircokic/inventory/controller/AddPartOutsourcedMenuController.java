@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
@@ -25,6 +26,20 @@ public class AddPartOutsourcedMenuController implements Initializable {
 
     Stage stage;
     Parent scene;
+    @FXML
+    private TextField addPartOutMinTxt;
+    @FXML
+    private TextField addPartOutCompanyNameTxt;
+    @FXML
+    private TextField addPartOutInvTxt;
+    @FXML
+    private TextField addPartOutIdTxt;
+    @FXML
+    private TextField addPartOutNameTxt;
+    @FXML
+    private TextField addPartOutPriceTxt;
+    @FXML
+    private TextField addPartOutMaxTxt;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

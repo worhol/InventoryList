@@ -65,18 +65,21 @@
                      <GridPane.margin>
                         <Insets left="40.0" />
                      </GridPane.margin></Label>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="addPartInIdTxt" disable="true" promptText="Auto Gen-Disabled" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></TextField>
+                  <TextField fx:id="addPartInNameTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="addPartInInvTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="addPartInPriceTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="addPartInMaxTxt" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="addPartInMachineIdTxt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label text="Min" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets left="30.0" />
                      </GridPane.margin>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                  <TextField fx:id="addPartInMinTxt" prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
