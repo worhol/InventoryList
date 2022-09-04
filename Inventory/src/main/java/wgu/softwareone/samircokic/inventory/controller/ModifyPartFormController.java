@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class ModifyPartFormController implements Initializable {
     @FXML
-    private ToggleGroup modify;
+    private ToggleGroup madein;
     @FXML
     private RadioButton modifyInRBtn;
     @FXML
@@ -46,6 +46,7 @@ public class ModifyPartFormController implements Initializable {
 
     Stage stage;
     Parent scene;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -71,14 +72,14 @@ public class ModifyPartFormController implements Initializable {
         modifyMachineIDOrCompanyName.setText(String.valueOf(part.getMachineId()));
     }
 
-    public void sendPart(Outsourced part){
-        modifyPartId.setText(String.valueOf(part.getId()));
-        modifyPartName.setText(part.getName());
-        modifyPartInv.setText(String.valueOf(part.getStock()));
-        modifyPartPrice.setText(String.valueOf(part.getPrice()));
-        modifyPartMax.setText(String.valueOf(part.getMax()));
-        modifyPartMin.setText(String.valueOf(part.getMin()));
-        modifyMachineIDOrCompanyName.setText(String.valueOf(part.getCompanyName()));
-    }
+//    public void sendPart(Outsourced part){
+//        modifyPartId.setText(String.valueOf(part.getId()));
+//        modifyPartName.setText(part.getName());
+//        modifyPartInv.setText(String.valueOf(part.getStock()));
+//        modifyPartPrice.setText(String.valueOf(part.getPrice()));
+//        modifyPartMax.setText(String.valueOf(part.getMax()));
+//        modifyPartMin.setText(String.valueOf(part.getMin()));
+//        modifyMachineIDOrCompanyName.setText(String.valueOf(part.getCompanyName()));
+//    }
 
 }

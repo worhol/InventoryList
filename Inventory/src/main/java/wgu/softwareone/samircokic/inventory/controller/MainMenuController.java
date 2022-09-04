@@ -95,7 +95,7 @@ public class MainMenuController implements Initializable {
 
         ModifyPartFormController modifyPartFormController = fxmlLoader.getController();
         modifyPartFormController.sendPart((InHouse) partsTable.getSelectionModel().getSelectedItem());
-        modifyPartFormController.sendPart((Outsourced) partsTable.getSelectionModel().getSelectedItem());
+//        modifyPartFormController.sendPart((Outsourced) partsTable.getSelectionModel().getSelectedItem());
 
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         Parent scene = fxmlLoader.getRoot();
