@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import wgu.softwareone.samircokic.inventory.model.InHouse;
 import wgu.softwareone.samircokic.inventory.model.Inventory;
+import wgu.softwareone.samircokic.inventory.model.Outsourced;
 import wgu.softwareone.samircokic.inventory.model.Part;
 
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class MainMenuController implements Initializable {
     @FXML
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -72,7 +73,7 @@ public class MainMenuController implements Initializable {
     @FXML
     public void onActionAddProduct(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/AddProductMenu.fxml"));
+        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/AddProductForm.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -87,10 +88,20 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void modifyPart(ActionEvent actionEvent) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyPartForm.fxml"));
+        fxmlLoader.load();
+
+        ModifyPartFormController modifyPartFormController = fxmlLoader.getController();
+        modifyPartFormController.sendPart((InHouse) partsTable.getSelectionModel().getSelectedItem());
+        modifyPartFormController.sendPart((Outsourced) partsTable.getSelectionModel().getSelectedItem());
+
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyPartMenu.fxml"));
+        Parent scene = fxmlLoader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
+
     }
 
     @FXML

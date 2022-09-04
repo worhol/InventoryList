@@ -5,17 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.ModifyPartMenuController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.ModifyPartFormController">
     <children>
         <VBox layoutY="78.0" prefHeight="422.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane alignment="CENTER" prefHeight="280.0" prefWidth="500.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="115.0" />
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="103.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="117.0" />
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="103.0" />
-                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="62.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="139.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="124.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="93.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="106.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="38.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,11 +36,11 @@
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </Label>
-                        <RadioButton fx:id="modifyInRBtn" mnemonicParsing="false" onAction="#onActionDisplayModifyPartMenu" selected="true" text="In-House" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <RadioButton fx:id="modifyInRBtn" mnemonicParsing="false" onAction="#inHouseOrOutsourcedMode" selected="true" text="In-House" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <toggleGroup>
                         <ToggleGroup fx:id="modify" />
                      </toggleGroup></RadioButton>
-                        <RadioButton fx:id="modifyOutRBtn" mnemonicParsing="false" onAction="#onActionDisplayModifyPartOutsourcedMenu" text="Outsourced" toggleGroup="$modify" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="modifyOutRBtn" mnemonicParsing="false" onAction="#inHouseOrOutsourcedMode" text="Outsourced" toggleGroup="$modify" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label text="ID" GridPane.rowIndex="2">
                             <GridPane.margin>
                                 <Insets left="40.0" />
@@ -61,22 +61,22 @@
                             <GridPane.margin>
                                 <Insets left="40.0" />
                             </GridPane.margin></Label>
-                        <Label text="Machine ID" GridPane.rowIndex="7">
+                        <Label fx:id="modifyPartMode" text="Machine ID" GridPane.rowIndex="7">
                             <GridPane.margin>
                                 <Insets left="40.0" />
                             </GridPane.margin></Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="modifyPartId" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="modifyPartName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="modifyPartInv" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="modifyPartPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="modifyPartMax" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="modifyMachineIDOrCompanyName" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Min" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                             <GridPane.margin>
                                 <Insets left="30.0" />
                             </GridPane.margin>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                        <TextField fx:id="modifyPartMin" prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <GridPane.margin>
                                 <Insets />
                             </GridPane.margin>
