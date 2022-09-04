@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"wgu.softwareone.samircokic.inventory.controller","l":"ModifyPartViewController"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"wgu.softwareone.samircokic.inventory.controller","l":"MainMenuController"}];updateSearchResults();
