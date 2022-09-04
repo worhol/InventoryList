@@ -62,24 +62,21 @@ public class ModifyPartFormController implements Initializable {
         }
 
     }
-    public void sendPart(InHouse part){
+    public void sendPart(Part part){
         modifyPartId.setText(String.valueOf(part.getId()));
         modifyPartName.setText(part.getName());
         modifyPartInv.setText(String.valueOf(part.getStock()));
         modifyPartPrice.setText(String.valueOf(part.getPrice()));
         modifyPartMax.setText(String.valueOf(part.getMax()));
         modifyPartMin.setText(String.valueOf(part.getMin()));
-        modifyMachineIDOrCompanyName.setText(String.valueOf(part.getMachineId()));
+        if (part instanceof InHouse){
+            modifyInRBtn.setSelected(true);
+            inHouseOrOutsourcedMode(new ActionEvent());
+            modifyMachineIDOrCompanyName.setText(String.valueOf(((InHouse) part).getMachineId()));
+        }else if (part instanceof Outsourced){
+            modifyOutRBtn.setSelected(true);
+            inHouseOrOutsourcedMode(new ActionEvent());
+            modifyMachineIDOrCompanyName.setText(((Outsourced) part).getCompanyName());
+        }
     }
-
-//    public void sendPart(Outsourced part){
-//        modifyPartId.setText(String.valueOf(part.getId()));
-//        modifyPartName.setText(part.getName());
-//        modifyPartInv.setText(String.valueOf(part.getStock()));
-//        modifyPartPrice.setText(String.valueOf(part.getPrice()));
-//        modifyPartMax.setText(String.valueOf(part.getMax()));
-//        modifyPartMin.setText(String.valueOf(part.getMin()));
-//        modifyMachineIDOrCompanyName.setText(String.valueOf(part.getCompanyName()));
-//    }
-
 }

@@ -53,8 +53,10 @@ public class AddPartFormController implements Initializable {
     public void inHouseOrOutsourcedMode(ActionEvent actionEvent) {
         if (outRBtn.isSelected()) {
             addPartMode.setText("Company Name");
+            outRBtn.setSelected(true);
         } else if (inRBtn.isSelected()) {
             addPartMode.setText("Machine ID");
+            inRBtn.setSelected(true);
         }
     }
 
