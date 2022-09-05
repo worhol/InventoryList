@@ -17,6 +17,7 @@ import wgu.softwareone.samircokic.inventory.model.Part;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainMenuController implements Initializable {
@@ -68,7 +69,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void deletePart(ActionEvent actionEvent) {
-        Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
+        Optional<ButtonType> answer = alert.showAndWait();
+        if (answer.isPresent()&&answer.get()==ButtonType.OK){
+            Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+        }
+
     }
 
     @FXML
