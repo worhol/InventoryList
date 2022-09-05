@@ -74,7 +74,6 @@ public class MainMenuController implements Initializable {
         if (answer.isPresent()&&answer.get()==ButtonType.OK){
             Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
         }
-
     }
 
     @FXML
