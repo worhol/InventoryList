@@ -106,33 +106,34 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void searchParts(ActionEvent actionEvent) throws IOException {
+        if (searchContent.getText().isEmpty()){
+            partsTable.getSelectionModel().clearSelection();
+            partsTable.setItems(Inventory.getAllParts());
+        }
         try {
             ObservableList<Part> parts = Inventory.lookupPart(searchContent.getText());
-            if (searchContent.getText().equals("")){
-                partsTable.setItems(Inventory.getAllParts());
-            }
             if (parts.size() == 0) {
                 int idNum = Integer.parseInt(searchContent.getText());
                 Part part = Inventory.lookupPart(idNum);
                 if (part != null) {
+                    partsTable.getSelectionModel().clearSelection();
                     partsTable.getSelectionModel().select(part);
                 }else if (part==null){
+//                    partsTable.getSelectionModel().clearSelection();
                     partsTable.setItems(Inventory.getAllParts());
                     partNotFoundDialogBox();
                 }
             }else if (parts.size()>0){
+                partsTable.getSelectionModel().clearSelection();
                 partsTable.setItems(parts);
             }else{
-                if (!partsTable.getSelectionModel().getSelectedItem().equals(searchContent.getText())){
-                    partsTable.getSelectionModel().clearSelection();
-                    partsTable.setItems(Inventory.getAllParts());
-                }
+                partsTable.getSelectionModel().clearSelection();
                 partsTable.setItems(Inventory.getAllParts());
             }
         }catch (NumberFormatException numberFormatException){
-
+            partNotFoundDialogBox();
         }
-        }
+    }
 
     public static void partNotFoundDialogBox(){
         Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");

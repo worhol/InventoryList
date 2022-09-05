@@ -26,8 +26,6 @@ public class AddPartFormController implements Initializable {
     private RadioButton inRBtn;
     @FXML
     private Label addPartMode;
-    Stage stage;
-    Parent scene;
     @FXML
     private TextField addPartPriceTxt;
     @FXML
@@ -42,6 +40,9 @@ public class AddPartFormController implements Initializable {
     private TextField addPartMinTxt;
     @FXML
     private TextField addPartMachineIdOrCompanyNameTxt;
+
+    Stage stage;
+    Parent scene;
 
 
     @Override
@@ -71,10 +72,25 @@ public class AddPartFormController implements Initializable {
         return id;
     }
 
+    public boolean minIsLessThanMax() {
+        try {
+            int min = Integer.valueOf(addPartMinTxt.getText());
+            int max = Integer.valueOf(addPartMaxTxt.getText());
+            int inventory = Integer.valueOf(addPartInvTxt.getText());
+            if (min >= max || min >= inventory || max <= inventory) {
+                return false;
+            }
+
+        } catch (NumberFormatException numberFormatException) {
+
+        }
+        return true;
+    }
+
     @FXML
     public void savePart(ActionEvent actionEvent) throws IOException {
         try {
-            if (inRBtn.isSelected()){
+            if (inRBtn.isSelected()) {
                 int id = createID();
                 String name = addPartNameTxt.getText();
                 int inventory = Integer.parseInt(addPartInvTxt.getText());
@@ -82,14 +98,19 @@ public class AddPartFormController implements Initializable {
                 int max = Integer.parseInt(addPartMaxTxt.getText());
                 int min = Integer.parseInt(addPartMinTxt.getText());
                 int machineId = Integer.parseInt(addPartMachineIdOrCompanyNameTxt.getText());
+                if (minIsLessThanMax()) {
+                    Part newPart = new InHouse(id, name, price, inventory, min, max, machineId);
+                    Inventory.addPart(newPart);
+                    stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                    alert.showAndWait();
+                }
 
-                Part newPart = new InHouse(id, name, price, inventory, min, max, machineId);
-                Inventory.addPart(newPart);
-                stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
-                stage.setScene(new Scene(scene));
-                stage.show();
-            }else if (outRBtn.isSelected()){
+            } else if (outRBtn.isSelected()) {
                 int id = createID();
                 String name = addPartNameTxt.getText();
                 int inventory = Integer.parseInt(addPartInvTxt.getText());
@@ -97,24 +118,28 @@ public class AddPartFormController implements Initializable {
                 int max = Integer.parseInt(addPartMaxTxt.getText());
                 int min = Integer.parseInt(addPartMinTxt.getText());
                 String companyName = addPartMachineIdOrCompanyNameTxt.getText();
+                if (minIsLessThanMax()) {
+                    Part newPart = new Outsourced(id, name, price, inventory, min, max, companyName);
+                    Inventory.addPart(newPart);
+                    stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                    alert.showAndWait();
+                }
 
-                Part newPart = new Outsourced(id, name, price, inventory, min, max, companyName);
-                Inventory.addPart(newPart);
-                stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
-                stage.setScene(new Scene(scene));
-                stage.show();
             }
 
         } catch (IllegalArgumentException illegalArgumentException) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Inappropriate Data");
-                alert.setContentText("Please enter valid data for each field");
-                alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Inappropriate Data");
+            alert.setContentText("Please enter valid data for each field");
+            alert.showAndWait();
 
         }
     }
-
 
     @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
