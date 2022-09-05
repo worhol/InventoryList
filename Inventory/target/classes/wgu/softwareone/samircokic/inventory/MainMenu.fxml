@@ -46,7 +46,7 @@
                   <Insets left="5.0" right="10.0" />
                </GridPane.margin>
             </TableView>
-            <TextField onAction="#onActionSearchParts" promptText="Search by Part ID or Name" GridPane.columnIndex="1">
+            <TextField fx:id="searchContent" onAction="#searchParts" promptText="Search by Part ID or Name" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>

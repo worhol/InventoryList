@@ -1,14 +1,13 @@
 package wgu.softwareone.samircokic.inventory.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import wgu.softwareone.samircokic.inventory.model.InHouse;
@@ -33,6 +32,8 @@ public class MainMenuController implements Initializable {
     private TableColumn partNameCol;
     @FXML
     private TableColumn inventoryCol;
+    @FXML
+    private TextField searchContent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -104,6 +105,38 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void onActionSearchParts(ActionEvent actionEvent) {
+    public void searchParts(ActionEvent actionEvent) throws IOException {
+        try {
+            ObservableList<Part> parts = Inventory.lookupPart(searchContent.getText());
+            if (searchContent.getText().equals("")){
+                partsTable.setItems(Inventory.getAllParts());
+            }
+            if (parts.size() == 0) {
+                int idNum = Integer.parseInt(searchContent.getText());
+                Part part = Inventory.lookupPart(idNum);
+                if (part != null) {
+                    partsTable.getSelectionModel().select(part);
+                }else if (part==null){
+                    partsTable.setItems(Inventory.getAllParts());
+                    partNotFoundDialogBox();
+                }
+            }else if (parts.size()>0){
+                partsTable.setItems(parts);
+            }else{
+                if (!partsTable.getSelectionModel().getSelectedItem().equals(searchContent.getText())){
+                    partsTable.getSelectionModel().clearSelection();
+                    partsTable.setItems(Inventory.getAllParts());
+                }
+                partsTable.setItems(Inventory.getAllParts());
+            }
+        }catch (NumberFormatException numberFormatException){
+
+        }
+        }
+
+    public static void partNotFoundDialogBox(){
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
+        alert.show();
     }
+
 }

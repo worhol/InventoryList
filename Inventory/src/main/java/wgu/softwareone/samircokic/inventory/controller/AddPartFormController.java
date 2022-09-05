@@ -116,4 +116,11 @@ public class AddPartFormController implements Initializable {
     }
 
 
+    @FXML
+    public void displayMainMenu(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
 }

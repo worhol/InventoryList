@@ -1,10 +1,12 @@
 package wgu.softwareone.samircokic.inventory.model;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author Samir Cokic
  */
 public class Inventory {
@@ -14,7 +16,7 @@ public class Inventory {
     /**
      * @param newPart new part to add
      */
-    public static void addPart(Part newPart){
+    public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
 
@@ -22,7 +24,7 @@ public class Inventory {
     /**
      * @param newProduct new product to add
      */
-    public static void addProduct(Product newProduct){
+    public static void addProduct(Product newProduct) {
         allProducts.add(newProduct);
     }
 
@@ -30,9 +32,9 @@ public class Inventory {
      * @param partId partId to lookup
      * @return the part
      */
-    public static Part lookupPart(int partId){
-        for (Part part: allParts){
-            if (part.getId()==partId){
+    public static Part lookupPart(int partId) {
+        for (Part part : allParts) {
+            if (part.getId() == partId) {
                 return part;
             }
         }
@@ -43,9 +45,9 @@ public class Inventory {
      * @param productId product id to lookup
      * @return the product if its present in allProducts or return null if not present
      */
-    public static Product lookupProduct(int productId){
-        for (Product product: allProducts){
-            if (product.getId()==productId){
+    public static Product lookupProduct(int productId) {
+        for (Product product : allProducts) {
+            if (product.getId() == productId) {
                 return product;
             }
         }
@@ -54,24 +56,25 @@ public class Inventory {
 
     /**
      * @param partName name of the part to lookup
-     * @return list of parts if it or they match the name of the part in allParts or null if not
+     * @return list of parts if it or they match the name of the part in allParts
      */
-    public static ObservableList<Part> lookupPart(String partName){
-        for (Part part: allParts){
-            if (part.getName().contains(partName)){
-                return allParts;
+    public static ObservableList<Part> lookupPart(String partName) {
+        ObservableList<Part> filter = FXCollections.observableArrayList();
+        for (Part part : allParts) {
+            if (part.getName().contains(partName)) {
+                filter.add(part);
             }
         }
-        return null;
+        return filter;
     }
 
     /**
      * @param productName name of the product to lookup
-     * @return list of products if it or they match the name of the part in allParts or null if not
+     * @return list of products if it or they match the name of the part in allParts
      */
-    public static ObservableList<Product> lookupProduct(String productName){
-        for (Product product: allProducts){
-            if (product.getName().contains(productName)){
+    public static ObservableList<Product> lookupProduct(String productName) {
+        for (Product product : allProducts) {
+            if (product.getName().contains(productName)) {
                 return allProducts;
             }
         }
@@ -79,18 +82,18 @@ public class Inventory {
     }
 
     /**
-     * @param index the index place in allParts list to be set
+     * @param index        the index place in allParts list to be set
      * @param selectedPart the part to be updated
      */
-    public static void updatePart(int index, Part selectedPart){
-        allParts.set(index,selectedPart);
+    public static void updatePart(int index, Part selectedPart) {
+        allParts.set(index, selectedPart);
     }
 
     /**
-     * @param index the index place in allProducts list to be set
+     * @param index      the index place in allProducts list to be set
      * @param newProduct the product to be updated
      */
-    public static void updateProduct(int index, Product newProduct){
+    public static void updateProduct(int index, Product newProduct) {
         allProducts.set(index, newProduct);
     }
 
@@ -98,9 +101,9 @@ public class Inventory {
      * @param selectedPart the part to be deleted if it is in the allParts list
      * @return true if part was deleted otherwise returns false
      */
-    public static boolean deletePart(Part selectedPart){
-        for (Part part:allParts){
-            if (part.equals(selectedPart)){
+    public static boolean deletePart(Part selectedPart) {
+        for (Part part : allParts) {
+            if (part.equals(selectedPart)) {
                 allParts.remove(part);
                 return true;
             }
@@ -112,9 +115,9 @@ public class Inventory {
      * @param selectedProduct the product to be deleted if it is in the allProducts list
      * @return true if product was deleted otherwise returns false
      */
-    public static boolean deleteProduct(Part selectedProduct){
-        for (Product product: allProducts){
-            if (product.equals(selectedProduct)){
+    public static boolean deleteProduct(Part selectedProduct) {
+        for (Product product : allProducts) {
+            if (product.equals(selectedProduct)) {
                 allParts.remove(product);
                 return true;
             }
