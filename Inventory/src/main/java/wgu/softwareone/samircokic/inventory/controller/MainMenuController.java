@@ -51,21 +51,6 @@ public class MainMenuController implements Initializable {
         System.exit(0);
     }
 
-    @FXML
-    public void onActionDeleteProduct(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void modifyProduct(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    }
-
-    @FXML
-    public void onActionSearchProducts(ActionEvent actionEvent) {
-    }
 
     @FXML
     public void deletePart(ActionEvent actionEvent) {
@@ -74,14 +59,6 @@ public class MainMenuController implements Initializable {
         if (answer.isPresent()&&answer.get()==ButtonType.OK){
             Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
         }
-    }
-
-    @FXML
-    public void onActionAddProduct(ActionEvent actionEvent) throws IOException {
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/AddProductForm.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
 
     @FXML
@@ -144,5 +121,27 @@ public class MainMenuController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
         alert.show();
     }
+    @FXML
+    public void modifyProduct(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
 
+    @FXML
+    public void addProduct(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/AddProductForm.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML
+    public void deleteProduct(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void searchProduct(ActionEvent actionEvent) {
+    }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.AddProductMenuController">
+<AnchorPane prefHeight="600.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wgu.softwareone.samircokic.inventory.controller.AddProductFormController">
    <children>
       <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="544.0" layoutX="29.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="763.0" />
       <Label layoutX="70.0" layoutY="57.0" text="Add Product">
@@ -65,6 +65,6 @@
       </TableView>
       <Button layoutX="603.0" layoutY="472.0" mnemonicParsing="false" text="Remove Associated Part" />
       <Button layoutX="603.0" layoutY="518.0" mnemonicParsing="false" text="Save" />
-      <Button layoutX="687.0" layoutY="518.0" mnemonicParsing="false" text="Cancel" />
+      <Button layoutX="687.0" layoutY="518.0" mnemonicParsing="false" onAction="#displayMainMenu" text="Cancel" />
    </children>
 </AnchorPane>

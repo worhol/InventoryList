@@ -31,6 +31,8 @@ public class Inventory {
     /**
      * @param partId partId to lookup
      * @return the part
+     * @RUNTIMEERROR
+     * @FUTUREENCHANCMENTS
      */
     public static Part lookupPart(int partId) {
         for (Part part : allParts) {
