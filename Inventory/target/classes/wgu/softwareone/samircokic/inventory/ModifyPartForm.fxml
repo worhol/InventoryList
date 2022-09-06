@@ -95,7 +95,7 @@
                     <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
-                                <Button mnemonicParsing="false" text="Save" />
+                                <Button mnemonicParsing="false" onAction="#saveModifiedPart" text="Save" />
                                 <Button mnemonicParsing="false" onAction="#displayMainMenu" text="Cancel" />
                             </children>
                         </HBox>

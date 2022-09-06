@@ -84,4 +84,75 @@ public class ModifyPartFormController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    @FXML
+    public void saveModifiedPart(ActionEvent actionEvent) throws IOException {
+        int index = Inventory.getAllParts().indexOf(Inventory.lookupPart(Integer.parseInt(modifyPartId.getText())));
+                try {
+            if (modifyInRBtn.isSelected()) {
+                int id = Integer.valueOf(modifyPartId.getText());
+                String name = modifyPartName.getText();
+                int inventory = Integer.parseInt(modifyPartInv.getText());
+                double price = Double.parseDouble(modifyPartPrice.getText());
+                int max = Integer.parseInt(modifyPartMax.getText());
+                int min = Integer.parseInt(modifyPartMin.getText());
+                int machineId = Integer.parseInt(modifyMachineIDOrCompanyName.getText());
+                if (minIsLessThanMax()) {
+                    Part newPart = new InHouse(id, name, price, inventory, min, max, machineId);
+                    Inventory.updatePart(index,newPart);
+
+                    stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                    alert.showAndWait();
+                }
+
+            } else if (modifyOutRBtn.isSelected()) {
+                int id = Integer.valueOf(modifyPartId.getText());
+                String name = modifyPartName.getText();
+                int inventory = Integer.parseInt(modifyPartInv.getText());
+                double price = Double.parseDouble(modifyPartPrice.getText());
+                int max = Integer.parseInt(modifyPartMax.getText());
+                int min = Integer.parseInt(modifyPartMin.getText());
+                String companyName = modifyMachineIDOrCompanyName.getText();
+                if (minIsLessThanMax()) {
+                    Part newPart = new Outsourced(id, name, price, inventory, min, max, companyName);
+                    Inventory.updatePart(index, newPart);
+                    stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                    scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+                    stage.setScene(new Scene(scene));
+                    stage.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                    alert.showAndWait();
+                }
+
+            }
+
+        } catch (IllegalArgumentException illegalArgumentException) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Inappropriate Data");
+            alert.setContentText("Please enter valid data for each field");
+            alert.showAndWait();
+
+        }
+    }
+    public boolean minIsLessThanMax() {
+        try {
+            int min = Integer.valueOf(modifyPartMin.getText());
+            int max = Integer.valueOf(modifyPartMax.getText());
+            int inventory = Integer.valueOf(modifyPartInv.getText());
+            if (min >= max || min >= inventory || max <= inventory) {
+                return false;
+            }
+
+        } catch (NumberFormatException numberFormatException) {
+
+        }
+        return true;
+    }
+
 }
