@@ -56,7 +56,10 @@ public class MainMenuController implements Initializable {
     public void deletePart(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
         Optional<ButtonType> answer = alert.showAndWait();
-        if (answer.isPresent()&&answer.get()==ButtonType.OK){
+        if (!Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem())) {
+            partNotFoundDialogBox();
+        }
+        if (answer.isPresent() && answer.get() == ButtonType.OK) {
             Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
         }
     }
@@ -88,7 +91,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void searchParts(ActionEvent actionEvent) throws IOException {
-        if (searchContent.getText().isEmpty()){
+        if (searchContent.getText().isEmpty()) {
             partsTable.getSelectionModel().clearSelection();
             partsTable.setItems(Inventory.getAllParts());
         }
@@ -100,27 +103,28 @@ public class MainMenuController implements Initializable {
                 if (part != null) {
                     partsTable.getSelectionModel().clearSelection();
                     partsTable.getSelectionModel().select(part);
-                }else if (part==null){
+                } else if (part == null) {
 //                    partsTable.getSelectionModel().clearSelection();
                     partsTable.setItems(Inventory.getAllParts());
                     partNotFoundDialogBox();
                 }
-            }else if (parts.size()>0){
+            } else if (parts.size() > 0) {
                 partsTable.getSelectionModel().clearSelection();
                 partsTable.setItems(parts);
-            }else{
+            } else {
                 partsTable.getSelectionModel().clearSelection();
                 partsTable.setItems(Inventory.getAllParts());
             }
-        }catch (NumberFormatException numberFormatException){
+        } catch (NumberFormatException numberFormatException) {
             partNotFoundDialogBox();
         }
     }
 
-    public static void partNotFoundDialogBox(){
+    public static void partNotFoundDialogBox() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
         alert.show();
     }
+
     @FXML
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
