@@ -30,4 +30,9 @@ public class ModifyProductFormController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    @javafx.fxml.FXML
+    public void removeAssociatedPart(ActionEvent actionEvent) {
+
+    }
 }

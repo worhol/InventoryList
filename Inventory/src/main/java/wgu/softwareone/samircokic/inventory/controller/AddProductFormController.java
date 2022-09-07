@@ -7,9 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import wgu.softwareone.samircokic.inventory.model.InHouse;
@@ -19,6 +17,7 @@ import wgu.softwareone.samircokic.inventory.model.Part;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddProductFormController implements Initializable {
@@ -73,6 +72,7 @@ public class AddProductFormController implements Initializable {
 
 
     ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
+
     public ObservableList<Part> getPartsInProduct() {
         return partsInProduct;
     }
@@ -85,4 +85,19 @@ public class AddProductFormController implements Initializable {
     }
 
 
+    @javafx.fxml.FXML
+    public void removeAssociatedPart(ActionEvent actionEvent) throws IndexOutOfBoundsException{
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
+        Optional<ButtonType> answer = alert.showAndWait();
+        try {
+            if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                int index = getPartsInProduct().indexOf(associatedPartTable.getSelectionModel().getSelectedItem());
+                partsInProduct.remove(index);
+            }
+        }catch (IndexOutOfBoundsException e){
+            Alert alertNotFound = new Alert(Alert.AlertType.ERROR, "Part not found");
+            alertNotFound.show();
+        }
+    }
 }

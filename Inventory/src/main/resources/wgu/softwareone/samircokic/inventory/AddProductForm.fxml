@@ -63,7 +63,7 @@
             <TableColumn fx:id="associatedPartPrice" prefWidth="119.0" text="Price/Cost per Unit" />
          </columns>
       </TableView>
-      <Button layoutX="603.0" layoutY="472.0" mnemonicParsing="false" text="Remove Associated Part" />
+      <Button layoutX="603.0" layoutY="472.0" mnemonicParsing="false" onAction="#removeAssociatedPart" text="Remove Associated Part" />
       <Button layoutX="603.0" layoutY="518.0" mnemonicParsing="false" text="Save" />
       <Button layoutX="687.0" layoutY="518.0" mnemonicParsing="false" onAction="#displayMainMenu" text="Cancel" />
    </children>
