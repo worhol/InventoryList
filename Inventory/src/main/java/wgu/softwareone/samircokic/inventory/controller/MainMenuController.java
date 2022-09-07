@@ -35,6 +35,16 @@ public class MainMenuController implements Initializable {
     private TableColumn inventoryCol;
     @FXML
     private TextField searchContent;
+    @FXML
+    private TableColumn productInvCol;
+    @FXML
+    private TableView productsTable;
+    @FXML
+    private TableColumn productIdCol;
+    @FXML
+    private TableColumn productNameCol;
+    @FXML
+    private TableColumn productPriceCol;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,6 +53,12 @@ public class MainMenuController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         inventoryCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         pricePartsCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        productsTable.setItems(Inventory.getAllProducts());
+        productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 
@@ -143,6 +159,15 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void deleteProduct(ActionEvent actionEvent) {
+        Alert deleteProduct = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this product?");
+        Optional<ButtonType> answer = deleteProduct.showAndWait();
+        if (!Inventory.deleteProduct(partsTable.getSelectionModel().getSelectedItem())) {
+            partNotFoundDialogBox();
+        }
+        if (answer.isPresent() && answer.get() == ButtonType.OK) {
+            Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+        }
+
     }
 
     @FXML
