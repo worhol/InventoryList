@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import wgu.softwareone.samircokic.inventory.model.InHouse;
-import wgu.softwareone.samircokic.inventory.model.Inventory;
-import wgu.softwareone.samircokic.inventory.model.Outsourced;
-import wgu.softwareone.samircokic.inventory.model.Part;
+import wgu.softwareone.samircokic.inventory.model.*;
 
 import java.io.IOException;
 
@@ -28,7 +25,10 @@ public class InventoryManagementSystem extends Application {
         Part part2 = new Outsourced(5, "break",34.78, 12,5, 19, "Toyota");
         Inventory.addPart(part);
         Inventory.addPart(part2);
-
+        Product product = new Product(1,"Bike",334.45,8,2,16);
+        Product product2 = new Product(2,"MountainBike",534.45,8,2,16);
+        Inventory.addProduct(product);
+        Inventory.addProduct(product2);
         launch();
     }
 }

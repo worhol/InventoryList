@@ -91,7 +91,7 @@
                   <Insets left="5.0" right="10.0" />
                </GridPane.margin>
             </TableView>
-            <TextField onAction="#searchProduct" prefHeight="25.0" prefWidth="179.0" promptText="Search by Product ID or Name" GridPane.columnIndex="1">
+            <TextField fx:id="searchProductContent" onAction="#searchProduct" prefHeight="25.0" prefWidth="179.0" promptText="Search by Product ID or Name" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>

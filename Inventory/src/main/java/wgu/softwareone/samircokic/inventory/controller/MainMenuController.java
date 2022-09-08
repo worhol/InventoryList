@@ -42,6 +42,8 @@ public class MainMenuController implements Initializable {
     private TableColumn productNameCol;
     @FXML
     private TableColumn productPriceCol;
+    @FXML
+    private TextField searchProductContent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -137,6 +139,10 @@ public class MainMenuController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
         alert.show();
     }
+    public static void productNotFoundDialogBox() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Product not found");
+        alert.show();
+    }
 
     @FXML
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
@@ -168,6 +174,37 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void searchProduct(ActionEvent actionEvent) {
+    public void searchProduct(ActionEvent actionEvent) throws IOException{
+        if (searchProductContent.getText().isEmpty()) {
+            productsTable.getSelectionModel().clearSelection();
+            productsTable.setItems(Inventory.getAllProducts());
+        }
+        try {
+            ObservableList<Product> products = Inventory.lookupProduct(searchProductContent.getText());
+            if (products.size() == 0) {
+                int idNum = Integer.parseInt(searchProductContent.getText());
+                Product product = Inventory.lookupProduct(idNum);
+                if (product != null) {
+                    productsTable.getSelectionModel().clearSelection();
+                    productsTable.getSelectionModel().select(product);
+                } else if (product == null) {
+                    productsTable.setItems(Inventory.getAllProducts());
+                    productNotFoundDialogBox();
+                }
+            } else if (products.size() > 0) {
+                productsTable.getSelectionModel().clearSelection();
+                productsTable.setItems(products);
+            } else {
+                productsTable.getSelectionModel().clearSelection();
+                productsTable.setItems(Inventory.getAllProducts());
+            }
+        } catch (NumberFormatException numberFormatException) {
+            productNotFoundDialogBox();
+            System.out.println(numberFormatException);
+        }catch (NullPointerException e){
+            System.out.println(e);
+            productNotFoundDialogBox();
+        }
     }
+
 }

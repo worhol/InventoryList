@@ -75,12 +75,13 @@ public class Inventory {
      * @return list of products if it or they match the name of the part in allParts
      */
     public static ObservableList<Product> lookupProduct(String productName) {
+        ObservableList<Product>filter = FXCollections.observableArrayList();
         for (Product product : allProducts) {
             if (product.getName().contains(productName)) {
-                return allProducts;
+                filter.add(product);
             }
         }
-        return null;
+        return filter;
     }
 
     /**
