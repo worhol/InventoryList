@@ -32,20 +32,23 @@
             <Label text="Inv" GridPane.rowIndex="2" />
             <Label text="Price" GridPane.rowIndex="3" />
             <Label text="Max" GridPane.rowIndex="4" />
-            <TextField prefHeight="25.0" prefWidth="117.0" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField maxWidth="80.0" prefHeight="25.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField maxWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="addProductId" disable="true" prefHeight="25.0" prefWidth="117.0" promptText="Auto Gen-Disabled" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="addProductName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="addProductInv" maxWidth="80.0" prefHeight="25.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="addProductPrice" maxWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <TextField maxWidth="80.0" />
+                  <TextField fx:id="addProductMax" maxWidth="80.0" />
                   <Label text="Min" />
                </children>
             </HBox>
-            <TextField maxWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="addProductMin" maxWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <TextField layoutX="590.0" layoutY="58.0" prefHeight="25.0" prefWidth="169.0" promptText="Search by part ID or Name" />
+      <TextField fx:id="searchContent" layoutX="590.0" layoutY="58.0" onAction="#searchPartForProduct" prefHeight="25.0" prefWidth="169.0" promptText="Search by part ID or Name" />
       <TableView fx:id="addProductPartsTable" layoutX="387.0" layoutY="102.0" prefHeight="148.0" prefWidth="369.0">
         <columns>
           <TableColumn fx:id="addProductPartIdCol" prefWidth="75.0" text="Part ID" />
@@ -64,7 +67,7 @@
          </columns>
       </TableView>
       <Button layoutX="603.0" layoutY="472.0" mnemonicParsing="false" onAction="#removeAssociatedPart" text="Remove Associated Part" />
-      <Button layoutX="603.0" layoutY="518.0" mnemonicParsing="false" text="Save" />
+      <Button layoutX="603.0" layoutY="518.0" mnemonicParsing="false" onAction="#saveProduct" text="Save" />
       <Button layoutX="687.0" layoutY="518.0" mnemonicParsing="false" onAction="#displayMainMenu" text="Cancel" />
    </children>
 </AnchorPane>

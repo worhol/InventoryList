@@ -10,10 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import wgu.softwareone.samircokic.inventory.model.InHouse;
-import wgu.softwareone.samircokic.inventory.model.Inventory;
-import wgu.softwareone.samircokic.inventory.model.Outsourced;
-import wgu.softwareone.samircokic.inventory.model.Part;
+import wgu.softwareone.samircokic.inventory.model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -161,11 +158,11 @@ public class MainMenuController implements Initializable {
     public void deleteProduct(ActionEvent actionEvent) {
         Alert deleteProduct = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this product?");
         Optional<ButtonType> answer = deleteProduct.showAndWait();
-        if (!Inventory.deleteProduct(partsTable.getSelectionModel().getSelectedItem())) {
-            partNotFoundDialogBox();
+        if (!Inventory.deleteProduct((Product) productsTable.getSelectionModel().getSelectedItem())) {
+
         }
         if (answer.isPresent() && answer.get() == ButtonType.OK) {
-            Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+            Inventory.deleteProduct((Product) productsTable.getSelectionModel().getSelectedItem());
         }
 
     }

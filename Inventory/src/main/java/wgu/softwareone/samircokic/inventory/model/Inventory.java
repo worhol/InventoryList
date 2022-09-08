@@ -117,10 +117,10 @@ public class Inventory {
      * @param selectedProduct the product to be deleted if it is in the allProducts list
      * @return true if product was deleted otherwise returns false
      */
-    public static boolean deleteProduct(Part selectedProduct) {
+    public static boolean deleteProduct(Product selectedProduct) {
         for (Product product : allProducts) {
             if (product.equals(selectedProduct)) {
-                allParts.remove(product);
+                allProducts.remove(product);
                 return true;
             }
         }
