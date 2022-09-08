@@ -35,7 +35,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn productInvCol;
     @FXML
-    private TableView productsTable;
+    private TableView<Product> productsTable;
     @FXML
     private TableColumn productIdCol;
     @FXML
@@ -71,7 +71,7 @@ public class MainMenuController implements Initializable {
     public void deletePart(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
         Optional<ButtonType> answer = alert.showAndWait();
-        if (!Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem())) {
+        if (partsTable.getSelectionModel().getSelectedItem()==null) {
             partNotFoundDialogBox();
         }
         if (answer.isPresent() && answer.get() == ButtonType.OK) {
@@ -146,10 +146,18 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
+        fxmlLoader.load();
+
+        ModifyProductFormController modifyProductFormController = fxmlLoader.getController();
+        modifyProductFormController.sendProduct(productsTable.getSelectionModel().getSelectedItem());
+
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
+        Parent scene = fxmlLoader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
+
     }
 
     @FXML
@@ -161,14 +169,14 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void deleteProduct(ActionEvent actionEvent) {
+    public void removeProduct(ActionEvent actionEvent) {
         Alert deleteProduct = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this product?");
         Optional<ButtonType> answer = deleteProduct.showAndWait();
-        if (!Inventory.deleteProduct((Product) productsTable.getSelectionModel().getSelectedItem())) {
-
+        if ( productsTable.getSelectionModel().getSelectedItem()==null) {
+            productNotFoundDialogBox();
         }
         if (answer.isPresent() && answer.get() == ButtonType.OK) {
-            Inventory.deleteProduct((Product) productsTable.getSelectionModel().getSelectedItem());
+            Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
         }
 
     }
@@ -206,5 +214,6 @@ public class MainMenuController implements Initializable {
             productNotFoundDialogBox();
         }
     }
+
 
 }
