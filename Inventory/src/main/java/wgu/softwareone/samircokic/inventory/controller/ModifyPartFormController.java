@@ -105,8 +105,11 @@ public class ModifyPartFormController implements Initializable {
                     scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                } else if (min>max){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max!");
+                    alert.showAndWait();
+                }else if (inventory>max||inventory<min){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory value should be between min and max values!");
                     alert.showAndWait();
                 }
 
@@ -125,8 +128,11 @@ public class ModifyPartFormController implements Initializable {
                     scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                } else if (min>max){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max!");
+                    alert.showAndWait();
+                }else if (inventory>max||inventory<min){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory value should be between min and max values!");
                     alert.showAndWait();
                 }
 

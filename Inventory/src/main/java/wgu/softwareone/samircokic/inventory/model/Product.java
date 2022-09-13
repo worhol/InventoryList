@@ -26,7 +26,6 @@ public class Product {
         this.stock = stock;
         this.min = min;
         this.max = max;
-//        this.associatedParts = FXCollections.observableArrayList();
     }
 
     /**

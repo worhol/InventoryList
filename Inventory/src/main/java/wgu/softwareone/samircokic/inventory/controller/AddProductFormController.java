@@ -83,6 +83,7 @@ public class AddProductFormController implements Initializable {
 
 
     static ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
+
     @FXML
     public void addPartToProduct(ActionEvent actionEvent) throws IOException {
         Part part = addProductPartsTable.getSelectionModel().getSelectedItem();
@@ -99,11 +100,14 @@ public class AddProductFormController implements Initializable {
     @FXML
     public void removeAssociatedPart(ActionEvent actionEvent) throws IndexOutOfBoundsException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to remove this part?");
         Optional<ButtonType> answer = alert.showAndWait();
         try {
-            if (answer.isPresent() && answer.get() == ButtonType.OK) {
+            if (answer.isPresent() && answer.get() == ButtonType.OK && partsInProduct.size() > 0) {
                 partsInProduct.remove(associatedPartTable.getSelectionModel().getSelectedItem());
+            }else if( partsInProduct.size() == 0){
+                Alert alertNotFound = new Alert(Alert.AlertType.ERROR, "Part not found");
+                alertNotFound.show();
             }
         } catch (IndexOutOfBoundsException e) {
             Alert alertNotFound = new Alert(Alert.AlertType.ERROR, "Part not found");
@@ -184,19 +188,21 @@ public class AddProductFormController implements Initializable {
             int min = Integer.parseInt(addProductMin.getText());
 
 
-
             if (minIsLessThanMax()) {
                 Product product = new Product(id, name, price, inventory, min, max);
                 Inventory.addProduct(product);
-                for (Part part:partsInProduct){
+                for (Part part : partsInProduct) {
                     product.addAssociatedPart(part);
                 }
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
                 stage.setScene(new Scene(scene));
                 stage.show();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+            } else if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max!");
+                alert.showAndWait();
+            } else if (inventory > max || inventory < min) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory value should be between min and max values!");
                 alert.showAndWait();
             }
         } catch (IllegalArgumentException illegalArgumentException) {

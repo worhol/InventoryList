@@ -94,18 +94,22 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void modifyPart(ActionEvent actionEvent) throws IOException {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyPartForm.fxml"));
+            fxmlLoader.load();
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyPartForm.fxml"));
-        fxmlLoader.load();
+            ModifyPartFormController modifyPartFormController = fxmlLoader.getController();
+            modifyPartFormController.sendPart(partsTable.getSelectionModel().getSelectedItem());
 
-        ModifyPartFormController modifyPartFormController = fxmlLoader.getController();
-        modifyPartFormController.sendPart(partsTable.getSelectionModel().getSelectedItem());
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = fxmlLoader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }catch (NullPointerException e){
+            partNotFoundDialogBox();
+        }
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = fxmlLoader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
 
     }
 
@@ -151,17 +155,22 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void modifyProduct(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
-        fxmlLoader.load();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/wgu/softwareone/samircokic/inventory/ModifyProductForm.fxml"));
+            fxmlLoader.load();
 
-        ModifyProductFormController modifyProductFormController = fxmlLoader.getController();
-        modifyProductFormController.sendProduct(productsTable.getSelectionModel().getSelectedItem());
+            ModifyProductFormController modifyProductFormController = fxmlLoader.getController();
+            modifyProductFormController.sendProduct(productsTable.getSelectionModel().getSelectedItem());
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        Parent scene = fxmlLoader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Parent scene = fxmlLoader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }catch (NullPointerException e){
+                productNotFoundDialogBox();
+        }
+
 
     }
 

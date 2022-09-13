@@ -1,5 +1,7 @@
 package wgu.softwareone.samircokic.inventory.controller;
-
+/**
+ * @author Samir Cokic
+ */
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,12 +46,19 @@ public class AddPartFormController implements Initializable {
     Stage stage;
     Parent scene;
 
-
+    /**
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * @param actionEvent
+     */
     @FXML
     public void inHouseOrOutsourcedMode(ActionEvent actionEvent) {
         if (outRBtn.isSelected()) {
@@ -61,6 +70,10 @@ public class AddPartFormController implements Initializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static int createID() {
         int id = 1;
         for (int i = 0; i < Inventory.getAllParts().size(); i++) {
@@ -72,6 +85,9 @@ public class AddPartFormController implements Initializable {
         return id;
     }
 
+    /**
+     * @return
+     */
     public boolean minIsLessThanMax() {
         try {
             int min = Integer.valueOf(addPartMinTxt.getText());
@@ -105,8 +121,11 @@ public class AddPartFormController implements Initializable {
                     scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                } else if (min>max){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max!");
+                    alert.showAndWait();
+                }else if (inventory>max||inventory<min){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory value should be between min and max values!");
                     alert.showAndWait();
                 }
 
@@ -125,8 +144,11 @@ public class AddPartFormController implements Initializable {
                     scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max; and Inv should be between those two values.");
+                } else if (min>max){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Min should be less than Max!");
+                    alert.showAndWait();
+                }else if (inventory>max||inventory<min){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory value should be between min and max values!");
                     alert.showAndWait();
                 }
 

@@ -9,9 +9,18 @@ import wgu.softwareone.samircokic.inventory.model.*;
 import java.io.IOException;
 
 /**
+ * @author Samir Cokic
+ */
+
+/**
  *
  */
 public class InventoryManagementSystem extends Application {
+    /**
+     *
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(InventoryManagementSystem.class.getResource("MainMenu.fxml"));
@@ -20,6 +29,10 @@ public class InventoryManagementSystem extends Application {
         stage.show();
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Part part = new InHouse(3, "wheel", 22.56, 35, 5, 15, 123332);
         Part part2 = new Outsourced(5, "break",34.78, 12,5, 19, "Toyota");
