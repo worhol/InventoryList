@@ -74,6 +74,7 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
+        partsInProduct.clear();
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
         stage.setScene(new Scene(scene));
@@ -82,9 +83,6 @@ public class AddProductFormController implements Initializable {
 
 
     static ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
-    public static ObservableList<Part> getPartsInProduct() {
-        return partsInProduct;
-    }
     @FXML
     public void addPartToProduct(ActionEvent actionEvent) throws IOException {
         Part part = addProductPartsTable.getSelectionModel().getSelectedItem();

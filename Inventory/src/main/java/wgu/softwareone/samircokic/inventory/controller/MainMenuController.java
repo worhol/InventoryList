@@ -68,7 +68,7 @@ public class MainMenuController implements Initializable {
 
 
     @FXML
-    public void deletePart(ActionEvent actionEvent) {
+    public void deletePart(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
         Optional<ButtonType> answer = alert.showAndWait();
         if (partsTable.getSelectionModel().getSelectedItem()==null) {
@@ -76,6 +76,11 @@ public class MainMenuController implements Initializable {
         }
         if (answer.isPresent() && answer.get() == ButtonType.OK) {
             Inventory.deletePart(partsTable.getSelectionModel().getSelectedItem());
+        }else if (answer.isPresent() && answer.get() == ButtonType.CANCEL){
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
         }
     }
 
@@ -169,7 +174,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void removeProduct(ActionEvent actionEvent) {
+    public void removeProduct(ActionEvent actionEvent) throws IOException {
         Alert deleteProduct = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this product?");
         Optional<ButtonType> answer = deleteProduct.showAndWait();
         if ( productsTable.getSelectionModel().getSelectedItem()==null) {
@@ -178,7 +183,13 @@ public class MainMenuController implements Initializable {
         if (answer.isPresent() && answer.get() == ButtonType.OK
                 &&productsTable.getSelectionModel().getSelectedItem().getAllAssociatedParts().size()==0) {
             Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
-        }else {
+        }else if (answer.isPresent() && answer.get() == ButtonType.CANCEL){
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+        else {
             Alert partPresent = new Alert(Alert.AlertType.WARNING, "Can't delete product associated with part");
             Optional<ButtonType> answerPart = partPresent.showAndWait();
         }
