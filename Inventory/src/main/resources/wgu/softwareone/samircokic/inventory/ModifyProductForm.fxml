@@ -45,7 +45,7 @@
                 <TextField fx:id="modifyProductMin" maxWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             </children>
         </GridPane>
-        <TextField layoutX="590.0" layoutY="58.0" prefHeight="25.0" prefWidth="169.0" promptText="Search by part ID or Name" />
+        <TextField fx:id="searchPartInModfyProduct" layoutX="590.0" layoutY="58.0" onAction="#searchForPart" prefHeight="25.0" prefWidth="169.0" promptText="Search by part ID or Name" />
         <TableView fx:id="modifyProductAddPartTable" layoutX="387.0" layoutY="102.0" prefHeight="148.0" prefWidth="369.0">
             <columns>
                 <TableColumn fx:id="modifyProductAddPartId" prefWidth="75.0" text="Part ID" />
@@ -54,7 +54,7 @@
                 <TableColumn fx:id="modifyProductAddPartPrice" prefWidth="119.0" text="Price/Cost per Unit" />
             </columns>
         </TableView>
-        <Button layoutX="675.0" layoutY="262.0" mnemonicParsing="false" text="Add" />
+        <Button layoutX="675.0" layoutY="262.0" mnemonicParsing="false" onAction="#addPartToModifyProduct" text="Add" />
         <TableView fx:id="modifyProductAssociatedPartTable" layoutX="387.0" layoutY="299.0" prefHeight="161.0" prefWidth="369.0">
             <columns>
                 <TableColumn fx:id="modifyProductAssociatedPartId" prefWidth="75.0" text="Part ID" />

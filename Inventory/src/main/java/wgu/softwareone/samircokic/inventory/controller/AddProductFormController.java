@@ -3,6 +3,7 @@ package wgu.softwareone.samircokic.inventory.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -18,43 +19,43 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddProductFormController implements Initializable {
+    @FXML
+    private TableColumn addProductPartInvCol;
+    @FXML
+    private TableColumn addProductPartPriceCol;
+    @FXML
+    private TableColumn addProductPartIdCol;
+    @FXML
+    private TableView<Part> addProductPartsTable;
+    @FXML
+    private TableColumn addProductPartNameCol;
+    @FXML
+    private TableColumn associatedPartPrice;
+    @FXML
+    private TableView<Part> associatedPartTable;
+    @FXML
+    private TableColumn associatedPartName;
+    @FXML
+    private TableColumn associatedPartId;
+    @FXML
+    private TableColumn associatedPartInv;
+    @FXML
+    private TextField searchContent;
+    @FXML
+    private TextField addProductName;
+    @FXML
+    private TextField addProductMin;
+    @FXML
+    private TextField addProductInv;
+    @FXML
+    private TextField addProductMax;
+    @FXML
+    private TextField addProductId;
+    @FXML
+    private TextField addProductPrice;
 
     Stage stage;
     Parent scene;
-    @javafx.fxml.FXML
-    private TableColumn addProductPartInvCol;
-    @javafx.fxml.FXML
-    private TableColumn addProductPartPriceCol;
-    @javafx.fxml.FXML
-    private TableColumn addProductPartIdCol;
-    @javafx.fxml.FXML
-    private TableView addProductPartsTable;
-    @javafx.fxml.FXML
-    private TableColumn addProductPartNameCol;
-    @javafx.fxml.FXML
-    private TableColumn associatedPartPrice;
-    @javafx.fxml.FXML
-    private TableView associatedPartTable;
-    @javafx.fxml.FXML
-    private TableColumn associatedPartName;
-    @javafx.fxml.FXML
-    private TableColumn associatedPartId;
-    @javafx.fxml.FXML
-    private TableColumn associatedPartInv;
-    @javafx.fxml.FXML
-    private TextField searchContent;
-    @javafx.fxml.FXML
-    private TextField addProductName;
-    @javafx.fxml.FXML
-    private TextField addProductMin;
-    @javafx.fxml.FXML
-    private TextField addProductInv;
-    @javafx.fxml.FXML
-    private TextField addProductMax;
-    @javafx.fxml.FXML
-    private TextField addProductId;
-    @javafx.fxml.FXML
-    private TextField addProductPrice;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,8 +65,6 @@ public class AddProductFormController implements Initializable {
         addProductPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addProductPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        associatedPartTable.setItems(getPartsInProduct());
-
         associatedPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
         associatedPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
         associatedPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -73,7 +72,7 @@ public class AddProductFormController implements Initializable {
 
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
@@ -82,29 +81,31 @@ public class AddProductFormController implements Initializable {
     }
 
 
-    ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
-
-    public ObservableList<Part> getPartsInProduct() {
+    static ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
+    public static ObservableList<Part> getPartsInProduct() {
         return partsInProduct;
     }
-
-    @javafx.fxml.FXML
+    @FXML
     public void addPartToProduct(ActionEvent actionEvent) throws IOException {
-        int index = Inventory.getAllParts().indexOf(addProductPartsTable.getSelectionModel().getSelectedItem());
-        Part part = Inventory.getAllParts().get(index);
+        Part part = addProductPartsTable.getSelectionModel().getSelectedItem();
         partsInProduct.add(part);
+        associatedPartTable.setItems(partsInProduct);
+        associatedPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        associatedPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        associatedPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        associatedPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
     }
 
 
-    @javafx.fxml.FXML
+    @FXML
     public void removeAssociatedPart(ActionEvent actionEvent) throws IndexOutOfBoundsException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
         Optional<ButtonType> answer = alert.showAndWait();
         try {
             if (answer.isPresent() && answer.get() == ButtonType.OK) {
-                int index = getPartsInProduct().indexOf(associatedPartTable.getSelectionModel().getSelectedItem());
-                partsInProduct.remove(index);
+                partsInProduct.remove(associatedPartTable.getSelectionModel().getSelectedItem());
             }
         } catch (IndexOutOfBoundsException e) {
             Alert alertNotFound = new Alert(Alert.AlertType.ERROR, "Part not found");
@@ -112,7 +113,7 @@ public class AddProductFormController implements Initializable {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void searchPartForProduct(ActionEvent actionEvent) {
 
         if (searchContent.getText().isEmpty()) {
@@ -174,7 +175,7 @@ public class AddProductFormController implements Initializable {
         return true;
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void saveProduct(ActionEvent actionEvent) throws IOException {
         try {
             int id = createID();
@@ -184,9 +185,14 @@ public class AddProductFormController implements Initializable {
             int max = Integer.parseInt(addProductMax.getText());
             int min = Integer.parseInt(addProductMin.getText());
 
+
+
             if (minIsLessThanMax()) {
                 Product product = new Product(id, name, price, inventory, min, max);
                 Inventory.addProduct(product);
+                for (Part part:partsInProduct){
+                    product.addAssociatedPart(part);
+                }
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
                 stage.setScene(new Scene(scene));

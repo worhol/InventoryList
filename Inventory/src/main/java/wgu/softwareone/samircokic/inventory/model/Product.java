@@ -3,20 +3,20 @@ package wgu.softwareone.samircokic.inventory.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author Samir Cokic
  */
 public class Product {
-    private  ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
-    private  int id;
-    private  String name;
-    private  double price;
+    private int id;
+    private String name;
+    private double price;
     private int stock;
-    private  int min;
-    private  int max;
-
+    private int min;
+    private int max;
 
 
     public Product(int id, String name, double price, int stock, int min, int max) {
@@ -26,6 +26,7 @@ public class Product {
         this.stock = stock;
         this.min = min;
         this.max = max;
+//        this.associatedParts = FXCollections.observableArrayList();
     }
 
     /**
@@ -115,17 +116,18 @@ public class Product {
     /**
      * @param part the part to set
      */
-    public void addAssociatedPart(Part part){
+    public void addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
 
     /**
-     * @param selectedAssociatedPart  the part to set
+     * @param selectedAssociatedPart the part to set
      * @return boolean true or false
      */
-    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
-        for (Part part:associatedParts){
+    public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
+        for (Part part : associatedParts) {
             if (part.equals(selectedAssociatedPart)) {
+                associatedParts.remove(part);
                 return true;
             }
         }
@@ -135,7 +137,7 @@ public class Product {
     /**
      * @return all associated parts
      */
-    public ObservableList<Part> getAllAssociatedParts(){
+    public ObservableList<Part> getAllAssociatedParts() {
         return associatedParts;
     }
 

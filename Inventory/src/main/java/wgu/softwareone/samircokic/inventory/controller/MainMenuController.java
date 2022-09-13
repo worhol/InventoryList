@@ -175,8 +175,12 @@ public class MainMenuController implements Initializable {
         if ( productsTable.getSelectionModel().getSelectedItem()==null) {
             productNotFoundDialogBox();
         }
-        if (answer.isPresent() && answer.get() == ButtonType.OK) {
+        if (answer.isPresent() && answer.get() == ButtonType.OK
+                &&productsTable.getSelectionModel().getSelectedItem().getAllAssociatedParts().size()==0) {
             Inventory.deleteProduct(productsTable.getSelectionModel().getSelectedItem());
+        }else {
+            Alert partPresent = new Alert(Alert.AlertType.WARNING, "Can't delete product associated with part");
+            Optional<ButtonType> answerPart = partPresent.showAndWait();
         }
 
     }

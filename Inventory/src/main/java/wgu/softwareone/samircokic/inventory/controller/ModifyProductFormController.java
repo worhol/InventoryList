@@ -1,6 +1,9 @@
 package wgu.softwareone.samircokic.inventory.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -14,66 +17,66 @@ import wgu.softwareone.samircokic.inventory.model.Product;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class ModifyProductFormController implements Initializable {
 
 
-    @javafx.fxml.FXML
+    @FXML
     private TextField modifyProductMax;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAssociatedPartInv;
-    @javafx.fxml.FXML
+    @FXML
     private TextField modifyProductId;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAssociatedPartId;
-    @javafx.fxml.FXML
+    @FXML
     private TextField modifyProductName;
-    @javafx.fxml.FXML
+    @FXML
     private TableView<Part> modifyProductAddPartTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAddPartName;
-    @javafx.fxml.FXML
+    @FXML
     private TextField modifyProductPrice;
-    @javafx.fxml.FXML
+    @FXML
     private TextField modifyProductMin;
-    @javafx.fxml.FXML
+    @FXML
     private TextField modifyProductInv;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAddPartInv;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAddPartId;
-    @javafx.fxml.FXML
+    @FXML
     private TableView<Part> modifyProductAssociatedPartTable;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAssociatedPartPrice;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAssociatedPartName;
-    @javafx.fxml.FXML
+    @FXML
     private TableColumn modifyProductAddPartPrice;
     Stage stage;
     Parent scene;
+    @FXML
+    private TextField searchPartInModfyProduct;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        modifyProductAddPartTable.setItems(Inventory.getAllParts());
-//        modifyProductAddPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        modifyProductAddPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        modifyProductAddPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-//        modifyProductAddPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        modifyProductAddPartTable.setItems(Inventory.getAllParts());
+        modifyProductAddPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyProductAddPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyProductAddPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyProductAddPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-//        modifyProductAssociatedPartTable.setItems(Inventory.getAllParts());
-//        modifyProductAssociatedPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        modifyProductAssociatedPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        modifyProductAssociatedPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-//        modifyProductAssociatedPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-
+        modifyProductAssociatedPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modifyProductAssociatedPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modifyProductAssociatedPartInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modifyProductAssociatedPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
@@ -81,8 +84,22 @@ public class ModifyProductFormController implements Initializable {
         stage.show();
     }
 
-    @javafx.fxml.FXML
-    public void removeAssociatedPart(ActionEvent actionEvent) {
+    @FXML
+    public void removeAssociatedPart(ActionEvent actionEvent) throws IndexOutOfBoundsException{
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete this part?");
+        Optional<ButtonType> answer = alert.showAndWait();
+        try {
+            if (answer.isPresent() && answer.get() == ButtonType.OK) {
+                Part part = modifyProductAssociatedPartTable.getSelectionModel().getSelectedItem();
+                partsInModifyProduct.remove(part);
+              Product product =  Inventory.lookupProduct(Integer.valueOf(modifyProductId.getText()));
+               product.deleteAssociatedPart(part);
+
+            }
+        } catch (IndexOutOfBoundsException e) {
+            Alert alertNotFound = new Alert(Alert.AlertType.ERROR, "Part not found");
+            alertNotFound.show();
+        }
 
     }
     public void sendProduct(Product product) {
@@ -92,8 +109,10 @@ public class ModifyProductFormController implements Initializable {
         modifyProductPrice.setText(String.valueOf(product.getPrice()));
         modifyProductMax.setText(String.valueOf(product.getMax()));
         modifyProductMin.setText(String.valueOf(product.getMin()));
+        modifyProductAssociatedPartTable.setItems(product.getAllAssociatedParts());
     }
-    @javafx.fxml.FXML
+
+    @FXML
     public void saveModifiedProduct(ActionEvent actionEvent) throws IOException{
         int index = Inventory.getAllProducts().indexOf(Inventory.lookupProduct(Integer.parseInt(modifyProductId.getText())));
         try {
@@ -105,6 +124,9 @@ public class ModifyProductFormController implements Initializable {
             int min = Integer.parseInt(modifyProductMin.getText());
             if (minIsLessThanMax()){
                 Product product = new Product(id,name,price,inventory,min,max);
+                for (Part part:partsInModifyProduct){
+                    product.addAssociatedPart(part);
+                }
                 Inventory.updateProduct(index,product);
                 stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/wgu/softwareone/samircokic/inventory/MainMenu.fxml"));
@@ -136,5 +158,49 @@ public class ModifyProductFormController implements Initializable {
 
         }
         return true;
+    }
+    static ObservableList<Part> partsInModifyProduct = FXCollections.observableArrayList();
+    @FXML
+    public void addPartToModifyProduct(ActionEvent actionEvent) {
+
+        Part part = modifyProductAddPartTable.getSelectionModel().getSelectedItem();
+        partsInModifyProduct.add(part);
+        modifyProductAssociatedPartTable.setItems(partsInModifyProduct);
+    }
+
+
+    @FXML
+    public void searchForPart(ActionEvent actionEvent) {
+
+        if (searchPartInModfyProduct.getText().isEmpty()) {
+            modifyProductAddPartTable.getSelectionModel().clearSelection();
+            modifyProductAddPartTable.setItems(Inventory.getAllParts());
+        }
+        try {
+            ObservableList<Part> parts = Inventory.lookupPart(searchPartInModfyProduct.getText());
+            if (parts.size() == 0) {
+                int idNum = Integer.parseInt(searchPartInModfyProduct.getText());
+                Part part = Inventory.lookupPart(idNum);
+                if (part != null) {
+                    modifyProductAddPartTable.getSelectionModel().clearSelection();
+                    modifyProductAddPartTable.getSelectionModel().select(part);
+                } else if (part == null) {
+                    modifyProductAddPartTable.setItems(Inventory.getAllParts());
+                    partNotFoundDialogBox();
+                }
+            } else if (parts.size() > 0) {
+                modifyProductAddPartTable.getSelectionModel().clearSelection();
+                modifyProductAddPartTable.setItems(parts);
+            } else {
+                modifyProductAddPartTable.getSelectionModel().clearSelection();
+                modifyProductAddPartTable.setItems(Inventory.getAllParts());
+            }
+        } catch (NumberFormatException numberFormatException) {
+            partNotFoundDialogBox();
+        }
+    }
+    public static void partNotFoundDialogBox() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
+        alert.show();
     }
 }
