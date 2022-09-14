@@ -10,10 +10,13 @@ import java.io.IOException;
 
 /**
  * @author Samir Cokic
- */
+ * <p>
+ *  <b>FUTURE ENHANCEMENT</b><br>
+ *  In the future the further refactoring of the code along the project would be necessary in order to avoid redundancy.<br>
+ *  Possible addition of the another class or two which would hold the redundant methods like save or delete.<br>
+ *  It would be also good to have an inventory more programmatic so when a user adds the part to the product, the inventory reflects it by removing that part from inventory.
+ * </p>
 
-/**
- *
  */
 public class InventoryManagementSystem extends Application {
     /**

@@ -1,0 +1,18 @@
+modify part button exception when nothing is selected DONE
+
+modify product button exception when product is not selected DONE
+
+javadoc for each method
+
+format exception for product not found in search
+
+addpart button id should show the id created NOT NEEDED
+
+addproduct keeps the parts after cancel DONE
+
+inventory should have separate alert from min max DONE
+
+delete product when cancel says couldn't find a part should be fixed  DONE
+
+
+remove part when empty doesn't give the right prompt DONE

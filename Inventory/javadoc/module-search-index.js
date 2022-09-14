@@ -1,1 +1,1 @@
-moduleSearchIndex = [];updateSearchResults();
+moduleSearchIndex = [{"l":"wgu.softwareone.samircokic.inventory"}];updateSearchResults();
