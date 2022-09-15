@@ -20,7 +20,11 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ * <p>This class is a blueprint for modify product form logic</p>
+ *
+ * @author Samir Cokic
+ */
 public class ModifyProductFormController implements Initializable {
 
 
@@ -61,6 +65,13 @@ public class ModifyProductFormController implements Initializable {
     @FXML
     private TextField searchPartInModfyProduct;
 
+    /**
+     *<p>This method initialize a controller after its root element has been completely processed. Once initialized it
+     * displays the two tables with their respective column values.
+     * Refer to <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/Initializable.html">Oracle</a> </p>
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         modifyProductAddPartTable.setItems(Inventory.getAllParts());
@@ -75,7 +86,11 @@ public class ModifyProductFormController implements Initializable {
         modifyProductAssociatedPartPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
-
+    /**
+     * <p>This method takes the user back to the Main Menu</p>
+     * @param actionEvent the event that calls the method
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
     @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -83,7 +98,13 @@ public class ModifyProductFormController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
+    /**
+     * <p>This method removes the selected part associated with the product. It checks that ok button was selected and that there are parts in a
+     * partsInProduct to be removed. If partsInProduct is empty it alerts the user that part cannot be deleted. </p>
+     *
+     * @param actionEvent the event that calls the method
+     * @throws IndexOutOfBoundsException Throws the exception if no object was selected
+     */
     @FXML
     public void removeAssociatedPart(ActionEvent actionEvent) throws IndexOutOfBoundsException{
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to remove this part?");
@@ -105,6 +126,12 @@ public class ModifyProductFormController implements Initializable {
         }
 
     }
+    /**
+     *<p>This method serves as the bridge between add product form and modify product. It sets the values of the product and when called displays
+     * the values in modify product form.</p>
+     *
+     * @param product product to be used
+     */
     public void sendProduct(Product product) {
         modifyProductId.setText(String.valueOf(product.getId()));
         modifyProductName.setText(product.getName());
@@ -114,7 +141,16 @@ public class ModifyProductFormController implements Initializable {
         modifyProductMin.setText(String.valueOf(product.getMin()));
         modifyProductAssociatedPartTable.setItems(product.getAllAssociatedParts());
     }
-
+    /**
+     * <p>This method upon receiving ActionEvent object as the argument, saves the modified values of the modified product and moves to the main menu.
+     *  It takes the value of id, name, inventory, price min and max to create a product. Then it calls the minIsLessThanMax() method and if that method returns true
+     * product is created, and then it loops through the partsInModifyProduct list and associating all parts in that list with product by adding them
+     * to addAssociatedPart observable list. After the save button was clicked, the method takes the user to main menu.
+     * The method also warns user if the inventory value is not in between min and max values, and if the min is larger than max.<br>
+     *
+     * @param actionEvent the event that calls the method
+     * @throws IOException checks for the IllegalArgumentException if the user entered invalid values.
+     */
     @FXML
     public void saveModifiedProduct(ActionEvent actionEvent) throws IOException{
         int index = Inventory.getAllProducts().indexOf(Inventory.lookupProduct(Integer.parseInt(modifyProductId.getText())));
@@ -151,6 +187,15 @@ public class ModifyProductFormController implements Initializable {
         }
 
     }
+    /**
+     * <p>This method checks if the min value is less than max value and that inventory value is in between those two.
+     * It returns true if condition is right and false otherwise.<br>
+     * <b>RUNTIME ERROR</b> The issues with this method were if the inappropriate data was entered for example
+     * String value instead of int value. In order to avoid that, the exception handling was used that warns the user
+     * about the inappropriate data entered</p>
+     *
+     * @return the boolean true or false
+     */
     public boolean minIsLessThanMax() {
         try {
             int min = Integer.valueOf(modifyProductMin.getText());
@@ -165,7 +210,16 @@ public class ModifyProductFormController implements Initializable {
         }
         return true;
     }
+    /**
+     * List of parts that are being added to the product
+     */
     static ObservableList<Part> partsInModifyProduct = FXCollections.observableArrayList();
+    /**
+     * This method waits for part to be selected and then adds that part to partsInModifyProduct observable list.
+     * It then populates the associatedPartTable with new values.
+     *
+     * @param actionEvent the event that calls the method
+     */
     @FXML
     public void addPartToModifyProduct(ActionEvent actionEvent) {
 
@@ -174,7 +228,19 @@ public class ModifyProductFormController implements Initializable {
         modifyProductAssociatedPartTable.setItems(partsInModifyProduct);
     }
 
-
+    /**
+     * <p>This method search through the table that have available parts to add to the product.
+     * If searchPartInModfyProduct textfield is empty it returns all parts available in allParts observable list.
+     * This method utilizes two methods lookupPart. One method is looking for the part based on int argument and returns the part
+     * the part whose id matches the argument. The other lookupPart method takes the String argument and returns the Part object
+     * which matches the String value in whole or partially.
+     * If the part is not available in the list the method warns user.
+     * <b>RUNTIME ERROR</b> The error that was coming running this method was that search content was not properly displaying
+     * parts after the consequent search because previous search would stay in the parts observable list. In order to avoid that each time
+     * method was called it also called the clearSelection() method which would clear the previous search content.</p>
+     *
+     * @param actionEvent the event that calls the method
+     */
     @FXML
     public void searchForPart(ActionEvent actionEvent) {
 
@@ -205,6 +271,9 @@ public class ModifyProductFormController implements Initializable {
             partNotFoundDialogBox();
         }
     }
+    /**
+     * <p>this method displays the error message.</p>
+     */
     public static void partNotFoundDialogBox() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
         alert.show();

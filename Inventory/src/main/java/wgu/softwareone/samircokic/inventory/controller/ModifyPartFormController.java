@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * <p>This class is a blueprint for modify part form logic</p>
+ *
+ * @author Samir Cokic
+ */
 public class ModifyPartFormController implements Initializable {
     @FXML
     private ToggleGroup madein;
@@ -44,12 +49,25 @@ public class ModifyPartFormController implements Initializable {
     Stage stage;
     Parent scene;
 
-
+    /**
+     *<p>Called to initialize a controller after its root element has been completely processed.
+     * Refer to <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/Initializable.html">Oracle</a> </p>
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
     }
+    /**
+     * <p>This method that takes the ActionEvent object as the argument,
+     * when called switches the label in AddPart GUI,based on whether the radio button
+     * for in house or outsourced was chosen.It checks the whether the modifyOutRBtn or modifyInRBtn was selected and then switches the label value
+     * between Company Name for outsourced product,
+     * and Machine ID for in house made product</p>
+     *
+     * @param actionEvent the event that calls the method
+     */
     @FXML
     public void inHouseOrOutsourcedMode(ActionEvent actionEvent) {
         if (modifyOutRBtn.isSelected()) {
@@ -59,6 +77,13 @@ public class ModifyPartFormController implements Initializable {
         }
 
     }
+
+    /**
+     *<p>This method serves as the bridge between add part form and modify part. It sets the values of the part and when called displays
+     * the values in modify part form. It checks whether the part is instance of InHouse Part or Outsourced part and adds appropriate values</p>
+     *
+     * @param part part to be used
+     */
     public void sendPart(Part part){
         modifyPartId.setText(String.valueOf(part.getId()));
         modifyPartName.setText(part.getName());
@@ -77,6 +102,11 @@ public class ModifyPartFormController implements Initializable {
         }
     }
 
+    /**
+     * <p>This method takes the user back to the Main Menu</p>
+     * @param actionEvent the event that calls the method
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
     @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -84,7 +114,20 @@ public class ModifyPartFormController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
+    /**
+     * <p>This method upon receiving ActionEvent object as the argument, saves the modified values of the part and moves to the main menu.
+     * it searches the selected part and adds the selected value to index variable.
+     * Then it checks which radio button is called. If it's a modifyInRBtn that means part is being made in house so it
+     * takes the value of id, name, inventory, price min and max to create a part, but since it's a in house created part
+     * it also takes the value of machine ID. Then it calls the minIsLessThanMax() method and if that method returns true
+     * modified part is created and updated as in allParts Inventory list at the place of index value. After the save button was clicked, the method takes the user to main menu
+     * If the modifyOutRBtn was chosen then the outsourced part was created, which works the same as the in house method except instead of int machine id
+     * method uses company name String.
+     * The method also warns user if the inventory value is not in between min and max values, and if the min is larger than max.<br>
+     *
+     * @param actionEvent the event that calls the method
+     * @throws IOException checks for the IllegalArgumentException if the user entered invalid values.
+     */
     @FXML
     public void saveModifiedPart(ActionEvent actionEvent) throws IOException {
         int index = Inventory.getAllParts().indexOf(Inventory.lookupPart(Integer.parseInt(modifyPartId.getText())));
@@ -146,6 +189,15 @@ public class ModifyPartFormController implements Initializable {
 
         }
     }
+    /**
+     * <p>This method checks if the min value is less than max value and that inventory value is in between those two.
+     * It returns true if condition is right and false otherwise.<br>
+     * <b>RUNTIME ERROR</b> The issues with this method were if the inappropriate data was entered for example
+     * String value instead of int value. In order to avoid that, the exception handling was used that warns the user
+     * about the inappropriate data entered</p>
+     *
+     * @return the boolean true or false
+     */
     public boolean minIsLessThanMax() {
         try {
             int min = Integer.valueOf(modifyPartMin.getText());

@@ -18,6 +18,11 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class runs the logic of adding a product in GUI. It also implements Initializable interface
+ *
+ * @author Samir Cokic
+ */
 public class AddProductFormController implements Initializable {
     @FXML
     private TableColumn addProductPartInvCol;
@@ -57,6 +62,13 @@ public class AddProductFormController implements Initializable {
     Stage stage;
     Parent scene;
 
+    /**
+     *<p>This method initialize a controller after its root element has been completely processed. Once initialized it
+     * displays the two tables with their respective column values.
+     * Refer to <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/fxml/Initializable.html">Oracle</a> </p>
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addProductPartsTable.setItems(Inventory.getAllParts());
@@ -72,6 +84,11 @@ public class AddProductFormController implements Initializable {
 
     }
 
+    /**
+     * <p>This method takes the user back to the Main Menu</p>
+     * @param actionEvent the event that calls the method
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
     @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {
         partsInProduct.clear();
@@ -82,8 +99,18 @@ public class AddProductFormController implements Initializable {
     }
 
 
+    /**
+     * List of parts that are being added to the product
+     */
     static ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
 
+    /**
+     * This method waits for part to be selected and then adds that part to partsInProduct observable list.
+     * It then populates the associatedPartTable with new values.
+     *
+     * @param actionEvent the event that calls the method
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
+     */
     @FXML
     public void addPartToProduct(ActionEvent actionEvent) throws IOException {
         Part part = addProductPartsTable.getSelectionModel().getSelectedItem();
@@ -97,6 +124,13 @@ public class AddProductFormController implements Initializable {
     }
 
 
+    /**
+     * <p>This method removes the selected part associated with the product. It checks that ok button was selected and that there are parts in a
+     * partsInProduct to be removed. If partsInProduct is empty it alerts the user that part cannot be deleted. </p>
+     *
+     * @param actionEvent the event that calls the method
+     * @throws IndexOutOfBoundsException Throws the exception if no object was selected
+     */
     @FXML
     public void removeAssociatedPart(ActionEvent actionEvent) throws IndexOutOfBoundsException {
 
@@ -115,6 +149,19 @@ public class AddProductFormController implements Initializable {
         }
     }
 
+    /**
+     * <p>This method search through the table that have available parts to add to the product.
+     * If searchContent textfield is empty it returns all parts available in allParts observable list.
+     * This method utilizes two methods lookupPart. One method is looking for the part based on int argument and returns the part
+     * the part whose id matches the argument. The other lookupPart method takes the String argument and returns the Part object
+     * which matches the String value in whole or partially.
+     * If the part is not available in the list the method warns user.
+     * <b>RUNTIME ERROR</b> The error that was coming running this method was that search content was not properly displaying
+     * parts after the consequent search because previous search would stay in the parts observable list. In order to avoid that each time
+     * method was called it also called the clearSelection() method which would clear the previous search content.</p>
+     *
+     * @param actionEvent the event that calls the method
+     */
     @FXML
     public void searchPartForProduct(ActionEvent actionEvent) {
 
@@ -146,11 +193,20 @@ public class AddProductFormController implements Initializable {
         }
     }
 
+    /**
+     * <p>this method displays the error message.</p>
+     */
     public static void partNotFoundDialogBox() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Part not found");
         alert.show();
     }
 
+    /**
+     * <p>This method runs through allProducts list and checks for the largest number of id in it.
+     * Then it adds 1 to that largest number and assign the value to new id</p>
+     *
+     * @return the unique id
+     */
     public static int createID() {
         int id = 1;
         for (int i = 0; i < Inventory.getAllProducts().size(); i++) {
@@ -161,7 +217,15 @@ public class AddProductFormController implements Initializable {
         }
         return id;
     }
-
+    /**
+     * <p>This method checks if the min value is less than max value and that inventory value is in between those two.
+     * It returns true if condition is right and false otherwise.<br>
+     * <b>RUNTIME ERROR</b> The issues with this method were if the inappropriate data was entered for example
+     * String value instead of int value. In order to avoid that, the exception handling was used that warns the user
+     * about the inappropriate data entered</p>
+     *
+     * @return the boolean true or false
+     */
     public boolean minIsLessThanMax() {
         try {
             int min = Integer.valueOf(addProductMin.getText());
@@ -176,7 +240,16 @@ public class AddProductFormController implements Initializable {
         }
         return true;
     }
-
+    /**
+     * <p>This method upon receiving ActionEvent object as the argument, saves the entered values of the created part and moves to the main menu.
+     *  It takes the value of id, name, inventory, price min and max to create a product. Then it calls the minIsLessThanMax() method and if that method returns true
+     * product is created, and then it loops through the partsInProduct list and associating all parts in that list with product by adding them
+     * to addAssociatedPart observable list. After the save button was clicked, the method takes the user to main menu.
+     * The method also warns user if the inventory value is not in between min and max values, and if the min is larger than max.<br>
+     *
+     * @param actionEvent the event that calls the method
+     * @throws IOException checks for the IllegalArgumentException if the user entered invalid values.
+     */
     @FXML
     public void saveProduct(ActionEvent actionEvent) throws IOException {
         try {

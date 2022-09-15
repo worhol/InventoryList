@@ -18,9 +18,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * <p>This class runs the logic of adding a part in GUI. It also implements Initializable interface </p>
+ *
  * @author Samir Cokic
  *
- * <p>This class runs the logic of adding a part in GUI. It also implements Initializable interface </p>
  */
 public class AddPartFormController implements Initializable {
     @FXML
@@ -203,7 +204,7 @@ public class AddPartFormController implements Initializable {
     /**
      * <p>This method takes the user back to the Main Menu</p>
      * @param actionEvent the event that calls the method
-     * @throws IOException checks for the IllegalArgumentException if the user entered invalid values.
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     @FXML
     public void displayMainMenu(ActionEvent actionEvent) throws IOException {

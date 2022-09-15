@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"wgu.softwareone.samircokic.inventory.controller"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"wgu.softwareone.samircokic.inventory","l":"wgu.softwareone.samircokic.inventory"},{"m":"wgu.softwareone.samircokic.inventory","l":"wgu.softwareone.samircokic.inventory.controller"},{"m":"wgu.softwareone.samircokic.inventory","l":"wgu.softwareone.samircokic.inventory.model"}];updateSearchResults();
