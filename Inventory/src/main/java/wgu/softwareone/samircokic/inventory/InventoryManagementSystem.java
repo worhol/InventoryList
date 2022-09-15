@@ -36,9 +36,9 @@ public class InventoryManagementSystem extends Application {
     /**
      * <p>This is the main method of the InventoryManagementSystem class where we can create the objects contained in that class and execute the methods associated with them.
      * launch method starts the application</p>
-     *
      * @param args contains the command line arguments as a String object in array
      */
+    // Javadoc folder is located in  Inventory/javadoc
     public static void main(String[] args) {
         Part part = new InHouse(1, "Wheel", 22.56, 35, 5, 15, 123332);
         Part part2 = new Outsourced(2, "Break",34.78, 12,5, 19, "Toyota");
