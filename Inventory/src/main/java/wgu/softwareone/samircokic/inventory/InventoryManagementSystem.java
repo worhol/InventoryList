@@ -46,6 +46,8 @@ public class InventoryManagementSystem extends Application {
         Inventory.addPart(part2);
         Product product = new Product(1,"Bike",334.45,8,2,16);
         Product product2 = new Product(2,"Scooter",534.45,8,2,16);
+        product2.addAssociatedPart(part);
+        product2.addAssociatedPart(part2);
         Inventory.addProduct(product);
         Inventory.addProduct(product2);
         launch();

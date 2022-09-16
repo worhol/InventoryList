@@ -105,8 +105,11 @@ public class AddProductFormController implements Initializable {
     static ObservableList<Part> partsInProduct = FXCollections.observableArrayList();
 
     /**
-     * This method waits for part to be selected and then adds that part to partsInProduct observable list.
-     * It then populates the associatedPartTable with new values.
+     *<p>This method waits for part to be selected and then adds that part to partsInProduct observable list.
+     * It then populates the associatedPartTable with new values. If part was not select user gets alerted.
+     * <b>RUNTIME ERROR</b> The method was not checking for null value, that was creating an issue that method was adding blank space to
+     * the table. Issue was resolved by adding an if statement that checks for null value and alerts the user
+     * if part was not selected.</p>
      *
      * @param actionEvent the event that calls the method
      * @throws IOException Signals that an I/O exception of some sort has occurred.
@@ -114,6 +117,10 @@ public class AddProductFormController implements Initializable {
     @FXML
     public void addPartToProduct(ActionEvent actionEvent) throws IOException {
         Part part = addProductPartsTable.getSelectionModel().getSelectedItem();
+        if (part==null)   {
+            partNotFoundDialogBox();
+            return;
+        }
         partsInProduct.add(part);
         associatedPartTable.setItems(partsInProduct);
         associatedPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
