@@ -133,7 +133,9 @@ public class AddProductFormController implements Initializable {
 
     /**
      * <p>This method removes the selected part associated with the product. It checks that ok button was selected and that there are parts in a
-     * partsInProduct to be removed. If partsInProduct is empty it alerts the user that part cannot be deleted. </p>
+     * partsInProduct to be removed. If partsInProduct is empty it alerts the user that part cannot be deleted.
+     * <b>RUNTIME ERROR</b> The method was not checking for null value. Issue was resolved by adding an if statement that checks for null value and alerts the user
+     *  if part to be removed was not selected.</p>
      *
      * @param actionEvent the event that calls the method
      * @throws IndexOutOfBoundsException Throws the exception if no object was selected
@@ -144,8 +146,13 @@ public class AddProductFormController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to remove this part?");
         Optional<ButtonType> answer = alert.showAndWait();
         try {
+            Part part = associatedPartTable.getSelectionModel().getSelectedItem();
+            if (part==null)   {
+                partNotFoundDialogBox();
+                return;
+            }
             if (answer.isPresent() && answer.get() == ButtonType.OK && partsInProduct.size() > 0) {
-                partsInProduct.remove(associatedPartTable.getSelectionModel().getSelectedItem());
+                partsInProduct.remove(part);
             }else if( partsInProduct.size() == 0){
                 Alert alertNotFound = new Alert(Alert.AlertType.ERROR, "Part not found");
                 alertNotFound.show();

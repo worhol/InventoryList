@@ -111,7 +111,9 @@ public class ModifyProductFormController implements Initializable {
      *  The issue uncovered flaw in a code of the ModifiedProductFormController class. The issue was due to
      *  parallel persistence, where parts to be added to product were being stored in additional(unnecessary) observable list.
      *  This was causing the method to not access the observable list getAllAssociatedParts where added part were stored.
-     *  The class logic was refactored, the unnecessary list was removed.</p>
+     *  The class logic was refactored, the unnecessary list was removed.
+     *  The method was also not checking for null value. Issue was resolved by adding an if statement that checks for null value and alerts the user
+     *  if part to be removed was not selected.</p>
      *
      * @param actionEvent the event that calls the method
      * @throws IndexOutOfBoundsException Throws the exception if no object was selected
@@ -123,6 +125,10 @@ public class ModifyProductFormController implements Initializable {
         try {
             Part part = modifyProductAssociatedPartTable.getSelectionModel().getSelectedItem();
             Product product = Inventory.lookupProduct(Integer.valueOf(modifyProductId.getText()));
+            if (part==null)   {
+                partNotFoundDialogBox();
+                return;
+            }
             if (answer.isPresent() && answer.get() == ButtonType.OK && product.getAllAssociatedParts().size() > 0) {
                 product.deleteAssociatedPart(part);
             } else if (answer.isPresent() && answer.get() == ButtonType.OK && product.getAllAssociatedParts().size() == 0) {
